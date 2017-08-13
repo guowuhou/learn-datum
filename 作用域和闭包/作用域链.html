@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域链</title>
+</head>
+<body>
+<!--<script>
+    var userName = "Hello";
+    function outer(outerArg0){     //outer函数对象是：ActiveObj:{outerArg0:0,outerVar:underfined,inner:underfined}
+        var outerVar = 1;
+        function inner(innerArg0){
+            var innerVar = 2;
+        }
+        alert(this.userName);
+    }
+    outer(0);  //开始建立“执行环境”   //[scope]  数组
+
+    //[ActiveObj,window]
+</script>-->
+
+<!--<script>
+    var name = "global";
+    function testName(){
+        alert(name);
+        var name = "local";
+        alert(name);
+    }
+    testName();
+    //结构：ActiveObj:{name:underfined}
+</script>-->
+
+<script>
+    var userName = "Hello";
+    function outer(outerArg0){ 
+        debugger    //outer函数对象是：ActiveObj:{outerArg0:0,outerVar:underfined,inner:underfined}
+        var outerVar = 1;
+        function inner(innerArg0){
+            var innerVar = 1;
+             //alert(this.userName);
+            alert(outerArg0+"----"+outerVar+"----"+innerVar+"-----"+this.userName);
+        }
+        inner(2);  //执行环境
+        alert(outerVar);
+    }
+    outer(0);  //开始建立“执行环境”
+
+    //因为inner是被定义在outer内部的，所以它的默认作用域是这样：[{outer的活动对象}，window]
+    //然后将第一步的活动对象插入头部，变成：[ActiveObj,{outer的活动对象}，window]
+    //展开看：[{innerArg0:0,innerVar:underfined},{outerArg0:0,outerVar:underfined,inner:underfined},window]
+</script>
+</body>
+</html>
